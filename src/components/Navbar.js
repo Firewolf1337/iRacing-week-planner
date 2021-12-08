@@ -8,6 +8,7 @@ import { changeModal } from '../actions/app';
 import { signOut } from '../actions/auth';
 import languages from '../i18n';
 import styles from '../styles/main.module.scss';
+import BuyACoffee from '../components/BuyACoffee';
 
 const userSelector = (state) => state.auth.user;
 
@@ -45,7 +46,7 @@ export default function Navbar() {
     <nav className={`${styles.navbar} ${styles['navbar-inverse']}`}>
       <div className={styles['container-fluid']}>
         <div className={styles['navbar-header']}>
-          <a className={styles['navbar-brand']} href="/">{t('iRacing Week Planner')}</a>
+          <a className={styles['navbar-brand']} href="/iracing/">{t('iRacing Week Planner')}</a>
         </div>
 
         <ul className={`${styles.nav} ${styles['navbar-nav']} ${styles['navbar-left']}`}>
@@ -57,6 +58,11 @@ export default function Navbar() {
             >
               {t('Purchase guide')}
             </a>
+          </li>
+        </ul>
+        <ul className={`${styles.nav} ${styles['navbar-nav']} ${styles['navbar-left']}`}>
+          <li >
+            <BuyACoffee />
           </li>
         </ul>
 

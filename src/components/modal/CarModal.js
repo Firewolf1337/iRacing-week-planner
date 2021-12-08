@@ -1,10 +1,10 @@
 // @flow
-
 import * as React from 'react';
 import { useTranslation } from 'react-i18next';
 import classnames from 'classnames';
 import StarIcon from '../icon/StarIcon';
 import Modal from './Modal';
+import ShoppingCartIcon from '../icon/ShoppingCartIcon';
 
 import raceListingStyles from '../styles/raceListing.module.scss';
 
@@ -39,6 +39,9 @@ export default function CarModal({ onClose, ownedCars, favouriteCars, isOpen, ca
             <thead>
               <tr>
                 <th>{t('Car')}</th>
+                <th>{t('Car')}</th>
+                <th>{t('Price')}</th>
+                <th>{t('Link')}</th>
               </tr>
             </thead>
             <tbody>
@@ -46,16 +49,33 @@ export default function CarModal({ onClose, ownedCars, favouriteCars, isOpen, ca
                 <tr
                   key={car}
                   className={classnames({
-                    success: ownedCars.includes(car.sku),
+                    [styles.success]: ownedCars.includes(car.sku),
                     [raceListingStyles.clickableCell]: true,
                   })}
                 >
+                  <td style={{padding: '0px'}}>
+                    <div>
+                    <img src={`./static/cars/${car.carId}.jpg`} alt={t(car.name)} style={{height:'50px'}}/>
+                    </div>
+                  </td>
                   <td>
                     {favouriteCars.includes(car.sku) ? (
                       <StarIcon />
                     ) : null}
                     <span> </span>
                     {t(car.name)}
+                  </td>
+                  <td>
+                    {t('$'+car.carPrice)}
+                  </td>
+                  <td>
+                  <a
+                      href={`https://members.iracing.com/membersite/member/CarDetail.do?carid=${car.carId}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ShoppingCartIcon />
+                    </a>
                   </td>
                 </tr>
               ))}

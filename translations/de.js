@@ -8,7 +8,7 @@ export default {
     'Options': 'Optionen',
     'About': 'Über uns',
     'Week {{week}}': 'Woche {{week}}',
-    'Races for date: {{date, YYYY MMM DD}}': 'Rennen für Datum: {{date, DD MM YYYY}}',
+    'Races for date: {{date, YYYY MMM DD}}': 'Rennen für Datum: {{date, DD.MM}}',
     'No time data': 'Keine Zeitangaben',
 
     // Filters
@@ -78,6 +78,7 @@ export default {
 
     // Dates
     '{{date, YYYY MMMM DD}}': '{{date, DD MMMM YYYY}}',
+    '{{date, YYYY MMM DD}}': '{{date, DD.MM.YYYY}}',
     '{{date, YYYY-MM-DD}}': '{{date, DD-MM-YYYY}}',
     'Every {{every}} starting at {{time, H:mm}} UTC': 'Jede {{every}} ab {{time, HH:mm z}}',
     '{{timeLocal, ddd h:mma}} ({{timeUtc, ddd h:mma z}})': '{{timeLocal, ddd HH:mm}} ({{timeUtc, ddd HH:mm z}})',

@@ -5,8 +5,11 @@ import { useTranslation } from 'react-i18next';
 import Modal from './Modal';
 import Checkbox from '../Checkbox';
 import series from '../../data/season.json';
-
+import classnames from 'classnames';
 import styles from '../../styles/main.module.scss';
+
+import levelToClass from '../../lib/levelToClass';
+import stylesClass from '../styles/licenceLevel.module.scss';
 
 const groupedSeries = series.reduce((grouped, single) => {
   if (single.catid === 1) {
@@ -57,9 +60,10 @@ const defaultProps = {
   isOpen: false,
   save: () => {},
   favouriteSeries: [],
+  effective: false,
 };
 
-export default function FavouriteSeriesModal({ onClose, isOpen, favouriteSeries, save }: Props) {
+export default function FavouriteSeriesModal({ onClose, isOpen, favouriteSeries, save}: Props) {
   const { t } = useTranslation();
 
   const setCheckboxFavourite = (seriesId, newValue) => {
@@ -83,8 +87,18 @@ export default function FavouriteSeriesModal({ onClose, isOpen, favouriteSeries,
         onChange={(newValue) => {
           setCheckboxFavourite(cbSeries.seriesid, newValue);
         }}
+      >      
+      <img src={`./static/series/${cbSeries.seriesid}.jpg`} style={{height: '1.5em'}}/>
+      <div
+        className={classnames(
+          stylesClass.licenceLevelComponent,
+          stylesClass[`licence${levelToClass(cbSeries.minlicenselevel, true).toUpperCase()}`],
+        )}
       >
-        {t(cbSeries.seriesname)}
+        <span className={stylesClass['licenceLetter']}> {levelToClass(cbSeries.minlicenselevel, true)}</span>
+        <span className={stylesClass['licenceText']} ></span>
+      </div>
+        <span style={{paddingLeft: '5px'}}>{t(cbSeries.seriesname)}</span> 
       </Checkbox>
     </div>
   );

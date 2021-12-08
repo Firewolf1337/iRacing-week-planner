@@ -3,7 +3,7 @@
 import moment from 'moment';
 import {
   Id, Car, Class, EndDate, Fixed, Licence, LinkColumn, NextRace, Official,
-  RaceTimes, Series, SeasonEnd, StartDate, Track, Type,
+  RaceTimes, Series, SeasonEnd, StartDate, RaceWeek, Track, Type,
 } from '../components/columns';
 import RaceLength from '../components/columns/RaceLength';
 import { getNextRace } from '../lib/races';
@@ -215,6 +215,17 @@ export default [{
   component: SeasonEnd,
   default: false,
   sort: getSortByDate('seriesEnd'),
+}, {
+  id: 'raceWeek',
+  header: 'Week',
+  component: RaceWeek,
+  default: false,
+  sort: (order, a, b) => {
+    if (order === 'asc') {
+      return (a.week < b.week ? -1 : 1);
+    }
+    return (a.week > b.week ? -1 : 1);
+  },
 }, {
   id: 'seriesLink',
   header: 'Link',

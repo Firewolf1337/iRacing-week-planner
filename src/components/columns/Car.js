@@ -21,7 +21,6 @@ type Props = {
 
 export default function Car({ race, favouriteCars, ownedCars }: Props) {
   const [modalOpen, setModalOpen] = React.useState(false);
-
   const openModal = () => {
     setModalOpen(true);
   };

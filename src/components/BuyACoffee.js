@@ -44,16 +44,27 @@ export default function BuyACoffee(): React.Node {
   const clickBuyCoffee = async () => {
     window.location = await getBCUrl();
   };
+  const blink_text = {
+    animation:'4s `${blinker} linear infinite',
+    WebkitAnimation:'4s `${blinker} linear infinite',
+    MozAnimation:'4s `${blinker} linear infinite',
+
+     color: 'red',
+    };
+  const blinker = (props) =>  keyframes` 
+     0% { opacity: 1.0; }
+     50% { opacity: 0.0; }
+     100% { opacity: 1.0; }
+     }
+`;
 
   return (
-    <button type="button" className={styles.bmcButton} onClick={clickBuyCoffee} onKeyPress={clickBuyCoffee}>
-      <img
-        src="https://cdn.buymeacoffee.com/buttons/bmc-new-btn-logo.svg"
-        alt={t('Buy me a coffee')}
-      />
-      <span style={{ marginLeft: '5px' }}>
-        {t('Buy me a coffee')}
-      </span>
-    </button>
+	    <a
+              id="navbar-link-buyCoffee"
+              href=""
+              onClick={clickBuyCoffee}
+            >
+              <span className="blink_text">{t('Buy me a coffee')}</span>
+            </a>
   );
 }

@@ -46,7 +46,8 @@ export default function Filters(): React.Node {
   );
 
   return (
-    <div style={{ fontSize: '0.8em' }}>
+    <div style={{ fontSize: '0.8em', display: 'flex', flexDirection: 'row'}}>
+     <div style={{ margin: '0px 0.8em' }} >
       <h4>{t('Type')}</h4>
       <Checkbox
         id="checkbox-type-oval"
@@ -76,7 +77,8 @@ export default function Filters(): React.Node {
       >
         {t('RX')}
       </Checkbox>
-
+     </div>
+     <div style={{ margin: '0px 0.8em' }} >
       <h4>{t('Licence')}</h4>
       <Checkbox
         id="checkbox-licence-r"
@@ -120,7 +122,8 @@ export default function Filters(): React.Node {
       >
         {t('P')}
       </Checkbox>
-
+     </div>
+     <div style={{ margin: '0px 0.8em' }} >
       <h4>{t('Official/Fixed')}</h4>
       <Checkbox
         id="checkbox-official-false"
@@ -150,7 +153,8 @@ export default function Filters(): React.Node {
       >
         {t('Fixed setup')}
       </Checkbox>
-
+     </div>
+     <div style={{ margin: '0px 0.8em' }} >
       <h4>{t('Content')}</h4>
       <Checkbox
         id="checkbox-ownedCars"
@@ -187,7 +191,8 @@ export default function Filters(): React.Node {
       >
         {t('Favorite tracks only')}
       </Checkbox>
-
+     </div>
+     <div style={{ margin: '0px 0.8em' }} >
       <p>
         <button
           id="filters-reset-filters-button"
@@ -209,7 +214,7 @@ export default function Filters(): React.Node {
           {t('Reset all settings')}
         </button>
       </p>
-
+     </div>
       {user ? (
         <p>
           <span

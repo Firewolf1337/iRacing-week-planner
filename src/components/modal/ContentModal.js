@@ -10,6 +10,7 @@ import Checkbox from '../Checkbox';
 import FavouriteStarButton from '../FavouriteStarButton';
 import styles from '../../styles/main.module.scss';
 import contentModalStyles from './styles/contentModal.module.scss';
+import ShoppingCartIcon from '../icon/ShoppingCartIcon';
 
 type Props = {
   id: string,
@@ -17,7 +18,7 @@ type Props = {
   onClose: () => void,
   title: string,
   save: (Array<number>) => void,
-  content: Array<{skuname?: string, name?: string}>,
+  content: Array<{skuname?: string, name?: string, carId?: number, id?: number}>,
   idField: string,
   defaultContent: Array<number>,
   ownedContent: Array<number>,
@@ -162,7 +163,7 @@ export default function ContentModal({
               className={`${contentModalStyles.checkboxContainer} ${styles['col-md-6']}`}
               key={item[idField]}
             >
-              <div>
+              <div style={{whiteSpace:'nowrap', overflow:'hidden', textOverflow:'ellipsis'}}>
                 <Checkbox
                   id={`${id}-select-item-${item[idField]}`}
                   disabled={
@@ -170,17 +171,31 @@ export default function ContentModal({
                   }
                   checked={ownedContent.indexOf(item[idField]) !== -1}
                   onChange={(newValue) => toggleContent(item[idField], newValue)}
-                >
-                  {item.skuname ? t(item.skuname) : t(item.name)}
+                > {item.carId ? <img src={`./static/cars/${item.carId}.jpg`} title={t(item.name)} style={{height:'1.5em'}}/> : '' }
+                  {item.skuname ? t(item.skuname) : t(item.name)} 
                 </Checkbox>
               </div> 
-
               <div className={contentModalStyles.favourite}>
                 <FavouriteStarButton
                   id={`${id}-favourite-item-${item[idField]}`}
                   enabled={favourites.indexOf(item[idField]) !== -1}
                   onClick={(newValue) => toggleFavourite(item[idField], newValue)}
                 />
+              </div>
+              <div>
+              {item.carId ? <a
+                      href={`https://members.iracing.com/membersite/member/CarDetail.do?carid=${item.carId}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      <ShoppingCartIcon /></a> : 
+                      <a
+                        href={`https://members.iracing.com/membersite/member/TrackDetail.do?trkid=${item.id}`}
+                        target="_blank"
+                        rel="noreferrer"
+                      >
+                      <ShoppingCartIcon />
+                    </a>}
               </div>
             </div>
           ))}

@@ -1,0 +1,175 @@
+#svgMap, #svgMap * {
+    margin: 0;
+    padding: 0;
+}
+#svgMap {
+    width: 100%;
+    background: #000;
+    height: 500px;
+    border: 1px solid #aaa;
+    outline: 1px solid #000;
+    position: relative;
+    box-sizing: border-box;
+}
+#svgMap .select-track {
+    position: absolute;
+    width: 250px;
+    bottom: 20px;
+    left: 20px;
+    z-index: 10;
+}
+    
+    #svgMap #legend {
+        border-radius: 5px;
+        box-shadow: 1px 2px 4px #00000059;
+        -webkit-transition: opacity 200ms ease-in;
+        -moz-transition: opacity 200ms ease-in;
+        -o-transition: opacity 200ms ease-in;
+        opacity: 0;
+        position: absolute;
+        width: 400px;
+        background: rgba(0,0,0,0.9);
+        left: 0;
+        top: 50px;
+        color: #fff;
+        padding: 20px;
+    }
+    
+    #svgMap #legend.show {
+        opacity: 1;
+    }
+    
+    #svgMap #legend-toggle {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+    }
+    
+        #svgMap #legend h2 {
+            font-size: 20px;
+            margin: 0 0 20px;
+        }
+        
+        #svgMap #legend table {
+            width: 100%;
+        }
+        
+        #svgMap #legend td,
+        #svgMap #legend th {
+            border: 1px solid #8c8c8c;
+            padding: 5px;
+        }
+        
+        #svgMap #legend .line {
+            width: 100%;
+            border: 1px solid #aaa;
+            position: relative;
+            top: 5px;
+        }
+    
+    #svgMap #legend-toggle button {
+        border: 1px solid #000;
+        border-radius: 5px;
+        color: #000;
+        padding: 5px 10px;
+        text-shadow: 0 1px 0 #f1f1f1;
+        background: rgba(255,255,255,0.75);
+        cursor: pointer;
+    }
+    
+    #svgMap .screenshots-button {
+        position: absolute;
+        top: 20px;
+        padding: 5px 10px;
+        right: 20px;
+        border: 1px solid #aaa;
+    }
+    #svgMap #main-logo {
+        position: absolute;
+        right: 20px;
+        bottom: 20px;
+        max-width: 250px;
+        max-height: 125px;
+        z-index: 10;
+    }
+    #svgMap svg {
+        position: absolute;
+        left: 10px;
+        top: 10px;
+        width: 910px;
+        height: 90%;
+    }
+    
+    /** Backgrounds **/
+    #track-background { z-index: 0; opacity: 0.35; }
+    #track-background #Bridge * {
+        fill: #fff;
+    }
+    #track-background #Pavement * {
+        fill: #C7C8CA;
+    }
+    #track-background #Buildings * {
+        fill: #C7C8CA;
+    }
+    
+    /** Inactive **/
+    #track-inactive { z-index: 1; }
+    #track-inactive * {
+        fill: #A7A9AC;
+    }
+    
+    /** Active **/
+    #track-active { z-index: 2; }
+    #track-active * {
+        fill: #FFF;
+    }
+    #svgMap #legend .line.active { border-color: #A7A9AC; border-width: 2px; }
+    
+    /** Pits & Other **/
+    #track-pitroad { z-index: 3; fill: #D82520; }
+    #track-pitroad #Pitroad * { fill: #D82520; }
+    #svgMap #legend .line.pit { border-color: #D82520; border-style: dashed; }
+    #track-pitroad #Mergeline * { fill: #0089BA; }
+    #svgMap #legend .line.merge { border-color:  #0089BA; border-style: dashed; }
+    #track-pitroad #Joker * { fill: #FF9100; }
+    #svgMap #legend .line.joker { border-color: #FF9100; border-style: dashed; }
+    
+    /** Start / Finish lines **/
+    #track-start-finish{ z-index: 4; }
+    #track-start-finish * { fill: #D82520; }
+    
+    #track-turns { z-index: 5; user-select: none; }
+    #track-turns text {
+        fill: #FFF;
+        font-size: 30px;
+        font-family: "Lato",sans-serif;
+        text-shadow: 0 2px 1px #000;
+    }
+
+#track-map-info {
+    margin-top: 20px;
+}
+
+#track-map-info table {
+    width: 350px;
+    margin-top: 0;
+    float: right;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+    #track-map-info th {
+        background: #333;
+        color: #fff;
+        font-size: 14px;
+    }
+    #track-map-info tr:nth-child(odd) {
+        background: #eee;
+    }
+    #track-map-info td, #track-map-info th {
+        padding: 3px 5px;
+        border: 1px solid #aaa;
+    }
+    #track-map-info tr td:first-child {
+        font-weight: bold;
+    }

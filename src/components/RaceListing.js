@@ -19,11 +19,17 @@ import columnStyles from './columns/styles/columns.module.scss';
 
 const settingsSelector = (state) => state.settings;
 const dateSelector = (state) => state.app.date;
+const dateSelector2 = (state) => state.app.date2;
+const weekSelector = (state) => state.app.week;
+const weekSelector2 = (state) => state.app.week2;
 
 export default function RaceListing(): React.Node {
   const { t } = useTranslation();
   const settings = useSelector(settingsSelector, shallowEqual);
   const date = useSelector(dateSelector, shallowEqual);
+  const date2 = useSelector(dateSelector2, shallowEqual);
+  const week = useSelector(weekSelector, shallowEqual);
+  const week2 = useSelector(weekSelector2, shallowEqual);
   const {
     filters, favouriteSeries, favouriteCars, favouriteTracks,
     sort, ownedCars, ownedTracks, columns,
@@ -39,9 +45,7 @@ export default function RaceListing(): React.Node {
     dispatch(updateSetting('sort', { key: columnId, order: 'asc' }));
   };
 
-  const dateFilteredRaces = React.useMemo(() => allRaces.filter(
-    (race) => moment(date).add(1, 'hour').isBetween(race.startTime, race.endTime),
-  ), [date]);
+  const dateFilteredRaces = allRaces.filter((race) => race.week >= week-1 && race.week <= week2-1);
 
   const sortedRaces = React.useMemo(() => sortRaces(sort, dateFilteredRaces), [sort, dateFilteredRaces]);
 
@@ -102,7 +106,7 @@ export default function RaceListing(): React.Node {
         </thead>
         <tbody>
           {filteredRaces.map((race) => (
-            <tr key={race.seriesId}>
+            <tr key={race.seriesuniq}>
               {chosenColumns.map((column) => (
                 <column.component
                   key={column.id}

@@ -35,6 +35,7 @@ export default function PurchaseGuideModal({ isOpen, onClose, ownedTracks, favou
                 <th>{t('Count')}</th>
                 <th>{t('Track')}</th>
                 <th>{t('Series')}</th>
+                <th>{t('Price')}</th>
                 <th>{t('Link')}</th>
               </tr>
             </thead>
@@ -56,6 +57,7 @@ export default function PurchaseGuideModal({ isOpen, onClose, ownedTracks, favou
                       ))}
                     </ul>
                   </td>
+                  <td>{t('$'+item.track.trackPrice)}</td>
                   <td>
                     <a
                       href={`https://members.iracing.com/membersite/member/TrackDetail.do?trkid=${item.track.id}`}

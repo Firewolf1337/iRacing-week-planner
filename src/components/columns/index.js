@@ -13,3 +13,4 @@ export { default as SeasonEnd } from './SeasonEnd';
 export { default as StartDate } from './StartDate';
 export { default as Track } from './Track';
 export { default as Type } from './Type';
+export { default as RaceWeek} from './RaceWeek';

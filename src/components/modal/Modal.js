@@ -18,6 +18,8 @@ type Props = {
   doneButtonText?: string,
   showFooter?: boolean,
   doneAction?: () => void,
+  showImage?: boolean,
+  image?: String,
 };
 
 const defaultProps = {
@@ -26,6 +28,7 @@ const defaultProps = {
   doneAction: () => {},
   doneButtonText: 'Close',
   showFooter: true,
+  showImage: false,
 };
 
 export default function Modal({
@@ -35,6 +38,8 @@ export default function Modal({
   onClose,
   doneButtonText,
   showFooter,
+  image,
+  showImage,
   doneAction,
 }: Props): React.Node {
   const { t } = useTranslation();
@@ -74,7 +79,7 @@ export default function Modal({
           <button type="button" className={styles.close} onClick={close}>
             <RemoveIcon />
           </button>
-          <h4 className={styles['modal-title']}>{title}</h4>
+          <h4 className={styles['modal-title']}>{showImage && (<img src={image} alt={title} style={{height: '2em'}}/>)}{title}</h4>
         </div>
         <div className={styles['modal-body']} style={{ maxHeight: '55vh', overflowY: 'auto' }}>
           {children}

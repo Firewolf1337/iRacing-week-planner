@@ -32,12 +32,12 @@ export default function calulatePurchaseOptimization({
       [trackPkgId]: {
         track: resultMap[trackPkgId] ? resultMap[trackPkgId].track : originalTrack,
         series: resultMap[trackPkgId] ? resultMap[trackPkgId].series : fromSeries,
-        count: resultMap[trackPkgId] ? resultMap[trackPkgId].count + 1 : 0,
+        count: resultMap[trackPkgId] ? resultMap[trackPkgId].count + 1 : 1,
       },
     };
   }, {}));
 
   return countById
-    .filter((item) => item.count > 1)
+    .filter((item) => item.count > 0)
     .sort((a, b) => b.count - a.count);
 }
