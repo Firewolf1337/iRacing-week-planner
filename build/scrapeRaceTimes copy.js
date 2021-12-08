@@ -24,6 +24,7 @@ if (seriesIds.length > 0) {
   seriess = seriess.filter((series) => seriesIds.includes(series.seriesId));
 }
 
+
 (async () => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
@@ -47,7 +48,7 @@ if (seriesIds.length > 0) {
       // eslint-disable-next-line no-continue
       continue;
     }
-
+    
     let weekStart = moment(nextFullRaceWeek.startTime);
 
     if (weekStart.isBefore(now)) {
@@ -55,10 +56,6 @@ if (seriesIds.length > 0) {
     }
     const weekEnd = moment(nextFullRaceWeek.endTime);
     const numberFourHourSlots = Math.floor(weekEnd.diff(weekStart, 'days') * 6);
-
-    if (weekEnd.isBefore(now)) {
-      continue;
-    }
 
     console.log(
       series.seriesId,
@@ -92,7 +89,7 @@ if (seriesIds.length > 0) {
             Cookie: cookie.cookieString(),
           },
         });
-
+        console.log(data.m);
         const dataMap = data.m;
 
         const sessions = data.d.r ? data.d.r.map(
@@ -104,7 +101,7 @@ if (seriesIds.length > 0) {
             {},
           ),
         ) : [];
-
+ 
         const sessionRaces = sessions.filter((session) => session.eventtypeid === 5);
 
         times.push(sessionRaces.map((race) => ({
@@ -154,7 +151,7 @@ if (seriesIds.length > 0) {
       });
     } catch (error) {
       console.error('Error', error.isAxiosError ? error.response : error);
-      //return [];
+      return [];
     }
   }
 
