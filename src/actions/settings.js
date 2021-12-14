@@ -1,5 +1,4 @@
 import debounce from 'lodash.debounce';
-import { getFirestore, collection, doc, getDoc, setDoc } from "firebase/firestore";
 
 export const UPDATE_FILTERS = 'SETTINGS/UPDATE_FILTERS';
 export const RESET_FILTERS = 'SETTINGS/RESET_FILTERS';
@@ -17,10 +16,9 @@ export function saveSettingsToFirebase() {
       return;
     }
 
-    const db = getFirestore(firebaseApp);
-    const collectionRef = collection(db, 'settings');
-    const docRef = doc(collectionRef, user.uid);
-    await setDoc(docRef, settings);
+    const db = firebaseApp.firestore();
+    const docRef = db.collection('settings').doc(user.uid);
+    await docRef.set(settings);
     dispatch({ type: FIREBASE_SYNCED });
   };
 }
@@ -66,16 +64,15 @@ export function getSettingsFromFirebase() {
       return;
     }
 
-    const db = getFirestore(firebaseApp);
-    const collectionRef = collection(db, 'settings');
-    const docRef = doc(collectionRef, user.uid);
-    const document = await getDoc(docRef);
+    const db = firebaseApp.firestore();
+    const docRef = db.collection('settings').doc(user.uid);
+    const doc = await docRef.get();
 
-    if (!document.exists) {
+    if (!doc.exists) {
       dispatch(saveSettingsToFirebase());
       return;
     }
 
-    dispatch({ type: LOAD_SETTINGS_FROM_FIREBASE, payload: document.data() });
+    dispatch({ type: LOAD_SETTINGS_FROM_FIREBASE, payload: doc.data() });
   };
 }
