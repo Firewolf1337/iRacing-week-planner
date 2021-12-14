@@ -144,7 +144,7 @@ export default function Navbar() {
                 setLanguageDropdown(!languageDropdown);
               }}
             >
-              {languages[i18n.language].flag}
+              {languages[i18n.language].flag}{' '}
               <span className={styles.caret} />
             </a>
             <ul className={styles['dropdown-menu']} ref={dropdownRef}>
@@ -160,6 +160,7 @@ export default function Navbar() {
                     }}
                   >
                     {language.flag}
+                    {' '}
                     {language.name}
                   </a>
                 </li>

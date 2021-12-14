@@ -2,19 +2,19 @@
 /node_modules
 /npm-debug.log
 /.DS_Store
-/public/dist
-/public/static/cars
-/public/static/tracks
-/public/static/series
 /src/data/car-class.json
 /src/data/cars.json
 /src/data/season.json
 /src/data/tracks.json
 /src/data/contributors.json
-/build/credentials.js
 .idea
 *.css.flow
 *.scss.flow
 .nyc_output
 coverage
 .DS_Store
+
+dist/*
+# !.gitignore
+!dist/static/
+!dist/favicon.ico

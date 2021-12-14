@@ -6,6 +6,7 @@ import { Provider } from 'react-redux';
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
 import MockDate from 'mockdate';
+import * as firebaseAuth from 'firebase/auth';
 import { SIGNED_IN } from '../actions/auth';
 
 import App from '../App';
@@ -13,12 +14,14 @@ import App from '../App';
 import '../data/season.json';
 import { defaultFilters } from '../reducers/settings';
 
+jest.mock('firebase/auth');
 jest.mock('../data/season.json');
+jest.mock('../data/racelengths.json');
+jest.mock('../data/racetimes.json');
 
 const mockStore = configureMockStore([thunk]);
 
 describe('components/App', () => {
-  const authSubscribers = [];
   const defaultStore = {
     settings: {
       sort: { key: 'id', order: 'asc' },
@@ -38,12 +41,7 @@ describe('components/App', () => {
     },
     auth: {
       user: null,
-      firebaseApp: {
-        auth: () => ({
-          currentUser: null,
-          onAuthStateChanged: (callback) => { authSubscribers.push(callback); },
-        }),
-      },
+      firebaseApp: {},
     },
   };
 
@@ -61,14 +59,10 @@ describe('components/App', () => {
 
     expect(component.toJSON()).toMatchSnapshot();
     expect(store.getActions()[0].type).toEqual(SIGNED_IN);
-    expect(store.getActions()[0].user).toEqual(null);
-
-    expect(authSubscribers.length).toBe(1);
+    expect(store.getActions()[0].user).not.toBeDefined();
 
     const newUser = { id: 123 };
-    authSubscribers.forEach((callback) => {
-      callback(newUser);
-    });
+    firebaseAuth.testDispatchOnAuthStateChanged(newUser);
     expect(store.getActions()[1].type).toEqual(SIGNED_IN);
     expect(store.getActions()[1].user).toBe(newUser);
   });

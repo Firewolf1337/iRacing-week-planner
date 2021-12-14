@@ -1,3 +1,7 @@
+import {
+  getAuth, signOut as fbSignOut, signInWithEmailAndPassword, createUserWithEmailAndPassword,
+  onAuthStateChanged, sendPasswordResetEmail,
+} from 'firebase/auth';
 import { debouncedDispatcherSaveSettings, getSettingsFromFirebase, saveSettingsToFirebase } from './settings';
 
 export const LOADING_AUTH = 'AUTH/LOADING_SIGN_IN';
@@ -16,8 +20,9 @@ export function signOut() {
       debouncedDispatcherSaveSettings.cancel();
       await dispatch(saveSettingsToFirebase());
     }
+    const auth = getAuth(getState().auth.firebaseApp);
+    await fbSignOut(auth);
 
-    await getState().auth.firebaseApp.auth().signOut();
     dispatch({ type: SIGNED_OUT });
   };
 }
@@ -26,7 +31,8 @@ export function signIn(email, password) {
   return async (dispatch, getState) => {
     dispatch({ type: LOADING_AUTH });
     try {
-      await getState().auth.firebaseApp.auth().signInWithEmailAndPassword(email, password);
+      const auth = getAuth(getState().auth.firebaseApp);
+      await signInWithEmailAndPassword(auth, email, password);
       return {};
     } catch (error) {
       dispatch({ type: ERROR_AUTH, error });
@@ -39,7 +45,8 @@ export function createAccount(email, password) {
   return async (dispatch, getState) => {
     dispatch({ type: LOADING_AUTH });
     try {
-      await getState().auth.firebaseApp.auth().createUserWithEmailAndPassword(email, password);
+      const auth = getAuth(getState().auth.firebaseApp);
+      await createUserWithEmailAndPassword(auth, email, password);
       return {};
     } catch (error) {
       dispatch({ type: ERROR_AUTH, error });
@@ -64,10 +71,11 @@ export function signedIn(user) {
 
 export function startListener() {
   return async (dispatch, getState) => {
-    const { currentUser } = getState().auth.firebaseApp.auth();
+    const auth = getAuth(getState().auth.firebaseApp);
+    const { currentUser } = auth;
     dispatch(signedIn(currentUser));
 
-    getState().auth.firebaseApp.auth().onAuthStateChanged((user) => {
+    onAuthStateChanged(auth, (user) => {
       dispatch(signedIn(user));
     });
   };
@@ -77,7 +85,8 @@ export function forgottenPassword(email) {
   return async (dispatch, getState) => {
     dispatch({ type: LOADING_RESET });
     try {
-      await getState().auth.firebaseApp.auth().sendPasswordResetEmail(email);
+      const auth = getAuth(getState().auth.firebaseApp);
+      await sendPasswordResetEmail(auth, email);
       dispatch({ type: RESET_SENT });
       return { type: RESET_SENT };
     } catch (error) {
